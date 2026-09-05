@@ -4,11 +4,12 @@ export type UnaryOperator = 'root' | 'percentage'
 
 export type Token =
   | { kind: 'number'; value: string }
-  | { kind: 'operator'; value: BinaryOperator | UnaryOperator }
+  | { kind: 'operator'; value: BinaryOperator }
+  | { kind: 'unary'; value: UnaryOperator }
 
 export type Expression =
   | { type: 'literal'; value: number }
-  | { type: 'unary'; operator: UnaryOperator; operand: Expression; }
+  | { type: 'unary'; operator: UnaryOperator; operand: Expression }
   | { type: 'binary'; operator: BinaryOperator; left: Expression; right: Expression }
 
 export type CalculatorState = {
@@ -28,5 +29,5 @@ export type CalculatorAction =
   | { type: 'error'; message: string }
 
 export const initialCalculatorState: CalculatorState = {
-  tokens: [], currentInput: '0', justEvaluated: false, error: null,
+  tokens: [], currentInput: '', justEvaluated: false, error: null,
 }

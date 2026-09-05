@@ -49,16 +49,16 @@ function App() {
   const operator = (value: BinaryOperator) =>
     dispatch({ type: "operator", value });
 
-  const UnaryOperator = (value: UnaryOperator) =>
+  const unaryOperator = (value: UnaryOperator) =>
     dispatch({ type: "operator", value });
 
   return (
     <main className="shell">
       <section className="calculator" aria-label="Calculadora">
         <div className="display-panel">
-          <span className="expression">{expressionLabel || "0"}</span>
+          <span className="expression">{expressionLabel || ""}</span>
           <output aria-live="polite">
-            {isLoading ? "..." : state.currentInput}
+            {isLoading ? "..." : state.currentInput || "0"}
           </output>
         </div>
         {state.error && (
@@ -75,14 +75,14 @@ function App() {
           </button>
           <button
             className="operator"
-            onClick={() => UnaryOperator("percentage")}
+            onClick={() => unaryOperator("percentage")}
           >
             %
           </button>
           <button className="operator" onClick={() => operator("power")}>
             xʸ
           </button>
-          <button className="operator" onClick={() => UnaryOperator("root")}>
+          <button className="operator" onClick={() => unaryOperator("root")}>
             √
           </button>
           <button className="operator" onClick={() => operator("divide")}>
