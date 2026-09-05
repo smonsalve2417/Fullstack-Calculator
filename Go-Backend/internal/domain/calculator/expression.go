@@ -83,7 +83,7 @@ func evaluateUnary(node Unary) (float64, error) {
 	}
 
 	switch node.Operator {
-	case "sqrt":
+	case "root", "sqrt":
 		if operand < 0 {
 			return 0, ErrNegativeRoot
 		}
