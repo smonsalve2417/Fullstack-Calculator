@@ -43,3 +43,4 @@ function appendNumber(tokens: Token[], value: string): Token[] {
 function isUnaryOperator(operator: BinaryOperator | UnaryOperator): operator is UnaryOperator {
   return operator === 'root' || operator === 'percentage'
 }
+

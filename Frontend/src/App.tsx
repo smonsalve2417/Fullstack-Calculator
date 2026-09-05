@@ -1,10 +1,11 @@
-import { useMemo, useReducer, useState } from "react";
+import { useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { HttpCalculatorApi } from "./adapters/http/calculatorApi";
 import { calculate } from "./application/calculate";
 import { calculatorReducer } from "./domain/calculator/reducer";
 import { initialCalculatorState } from "./domain/calculator/types";
 import type { BinaryOperator } from "./domain/calculator/types";
 import type { UnaryOperator } from "./domain/calculator/types";
+import { formatDisplayNumber } from "./presentation/formatDisplay";
 import "./App.css";
 
 const labels: Record<BinaryOperator | UnaryOperator, string> = {
@@ -23,6 +24,21 @@ function App() {
     initialCalculatorState,
   );
   const [isLoading, setIsLoading] = useState(false);
+  const outputRef = useRef<HTMLOutputElement>(null);
+  useEffect(() => {
+    const output = outputRef.current;
+
+    if (!output) return;
+
+    let size = 3.3;
+
+    output.style.fontSize = `${size}rem`;
+
+    while (output.scrollWidth > output.clientWidth && size > 2) {
+      size -= 0.1;
+      output.style.fontSize = `${size}rem`;
+    }
+  }, [state.currentInput, isLoading]);
   const api = useMemo(() => new HttpCalculatorApi("http://localhost:8080"), []);
   const expressionLabel = state.tokens
     .map((token) =>
@@ -57,8 +73,8 @@ function App() {
       <section className="calculator" aria-label="Calculadora">
         <div className="display-panel">
           <span className="expression">{expressionLabel || ""}</span>
-          <output aria-live="polite">
-            {isLoading ? "..." : state.currentInput || "0"}
+          <output ref={outputRef} aria-live="polite">
+            {isLoading ? "..." : formatDisplayNumber(state.currentInput) || "0"}
           </output>
         </div>
         {state.error && (
