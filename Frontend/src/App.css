@@ -1,0 +1,10 @@
+.shell { width: min(1120px, 100%); min-height: 100vh; margin: 0 auto; padding: 72px clamp(22px, 7vw, 96px); display: grid; grid-template-columns: minmax(240px, 1fr) minmax(320px, 420px); align-items: center; gap: clamp(44px, 9vw, 130px); }
+.eyebrow { color: #d36148; font: 700 .72rem/1 var(--mono); letter-spacing: .14em; }
+h1 { margin: 28px 0 22px; color: #1f2933; font: 500 clamp(3.2rem, 7vw, 6.8rem)/.9 Georgia, serif; letter-spacing: -.06em; } h1 em { color: #307f78; font-style: italic; }
+.lede { max-width: 400px; color: #66737d; font-size: 1rem; line-height: 1.7; }
+.calculator { padding: 22px; background: #f8f5ef; border: 1px solid #e3ded3; box-shadow: 18px 22px 0 #dce9e5; }
+.display-panel { min-height: 130px; padding: 20px 22px; display: flex; flex-direction: column; justify-content: space-between; background: #22333b; color: #f4f0e8; } .expression { min-height: 22px; color: #a8bcb9; font: .83rem var(--mono); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } output { overflow: hidden; text-overflow: ellipsis; font: 3.3rem/1 var(--mono); text-align: right; }
+.error { margin: 12px 0 0; color: #b64634; font-size: .78rem; }
+.keypad { margin-top: 16px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; } button { min-height: 58px; border: 1px solid #d9d2c6; background: #fffdf9; color: #27353c; font: 600 1.1rem var(--mono); cursor: pointer; transition: transform 120ms ease, background 120ms ease; } button:hover { background: #e6f0ec; transform: translateY(-2px); } button:focus-visible { outline: 3px solid #d36148; outline-offset: 2px; } button:disabled { cursor: wait; opacity: .55; }
+.utility { color: #b64634; background: #f3e4de; } .operator { color: #307f78; background: #e4efeb; } .equals { color: #fffaf2; background: #d36148; border-color: #d36148; } .equals:hover { background: #b9503a; } .zero { grid-column: span 2; }
+@media (max-width: 720px) { .shell { min-height: auto; padding: 42px 20px 56px; grid-template-columns: 1fr; gap: 42px; } h1 { font-size: clamp(3.4rem, 16vw, 5.2rem); } .calculator { box-shadow: 10px 12px 0 #dce9e5; } }
