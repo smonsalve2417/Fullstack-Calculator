@@ -45,6 +45,7 @@ h1 em {
   background: #1d1c1c;
   border: 1px solid #e3ded3;
   border-radius: 30px;
+
 }
 
 .display-panel {
@@ -61,7 +62,7 @@ h1 em {
 .expression {
   min-height: 22px;
   color: #a8bcb9;
-  font: 0.83rem var(--mono);
+  font: 1.5rem var(--mono);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -129,13 +130,13 @@ button:disabled {
   background: #b9503a;
 }
 .zero {
-  grid-column: span 2;
+  grid-column: span 1;
 }
 
 @media (max-width: 720px) {
   .shell {
-    min-height: auto;
-    padding: 42px 20px 56px;
+    min-height: 100vh;
+    padding: 42px 0px 56px;
     flex-direction: column;
     gap: 42px;
   }

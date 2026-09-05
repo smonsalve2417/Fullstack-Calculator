@@ -4,14 +4,17 @@ import { calculate } from "./application/calculate";
 import { calculatorReducer } from "./domain/calculator/reducer";
 import { initialCalculatorState } from "./domain/calculator/types";
 import type { BinaryOperator } from "./domain/calculator/types";
+import type { UnaryOperator } from "./domain/calculator/types";
 import "./App.css";
 
-const labels: Record<BinaryOperator, string> = {
+const labels: Record<BinaryOperator | UnaryOperator, string> = {
   add: "+",
   subtract: "−",
   multiply: "×",
   divide: "÷",
   power: "xʸ",
+  root: "√",
+  percentage: "%",
 };
 
 function App() {
@@ -42,7 +45,11 @@ function App() {
   }
 
   const digit = (value: string) => dispatch({ type: "digit", value });
+
   const operator = (value: BinaryOperator) =>
+    dispatch({ type: "operator", value });
+
+  const UnaryOperator = (value: UnaryOperator) =>
     dispatch({ type: "operator", value });
 
   return (
@@ -67,18 +74,21 @@ function App() {
             AC
           </button>
           <button
-            className="utility"
-            onClick={() => dispatch({ type: "backspace" })}
-            aria-label="Borrar último dígito"
+            className="operator"
+            onClick={() => UnaryOperator("percentage")}
           >
-            Del
+            %
           </button>
           <button className="operator" onClick={() => operator("power")}>
             xʸ
           </button>
+          <button className="operator" onClick={() => UnaryOperator("root")}>
+            √
+          </button>
           <button className="operator" onClick={() => operator("divide")}>
             ÷
           </button>
+
           {["7", "8", "9"].map((value) => (
             <button key={value} onClick={() => digit(value)}>
               {value}
@@ -103,10 +113,10 @@ function App() {
           <button className="operator" onClick={() => operator("add")}>
             +
           </button>
+          <button onClick={() => dispatch({ type: "decimal" })}>.</button>
           <button className="zero" onClick={() => digit("0")}>
             0
           </button>
-          <button onClick={() => dispatch({ type: "decimal" })}>.</button>
           <button
             className="equals"
             onClick={handleEquals}
