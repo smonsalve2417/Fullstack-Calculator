@@ -47,23 +47,9 @@ function App() {
 
   return (
     <main className="shell">
-      <section className="intro">
-        <p className="eyebrow">CALCULADORA / AST ENGINE</p>
-        <h1>
-          Haz que los números
-          <br />
-          <em>encajen.</em>
-        </h1>
-        <p className="lede">
-          Construye una expresión con los botones. El backend la interpreta como
-          un árbol y respeta la precedencia matemática.
-        </p>
-      </section>
       <section className="calculator" aria-label="Calculadora">
         <div className="display-panel">
-          <span className="expression">
-            {expressionLabel || "Nueva expresión"}
-          </span>
+          <span className="expression">{expressionLabel || "0"}</span>
           <output aria-live="polite">
             {isLoading ? "..." : state.currentInput}
           </output>
@@ -85,7 +71,7 @@ function App() {
             onClick={() => dispatch({ type: "backspace" })}
             aria-label="Borrar último dígito"
           >
-            ⌫
+            Del
           </button>
           <button className="operator" onClick={() => operator("power")}>
             xʸ
