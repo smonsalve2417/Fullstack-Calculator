@@ -95,17 +95,13 @@ Mathematical errors return HTTP `422` with this shape:
 
 ## Design Decisions and Assumptions
 
-- The primary goal was not only to build a working calculator quickly. The project was intentionally structured as a maintainable application: modular boundaries, isolated business rules, replaceable adapters, and code that can be tested without requiring the complete system to run.
-- Clean Architecture was chosen because, when applied consistently, it supports those goals by keeping the domain independent from React, HTTP, and infrastructure details. This makes changes easier to reason about and prevents presentation or transport concerns from spreading into the calculation engine.
-- The current frontend and backend separation reflects those boundaries. The frontend handles interaction and expression construction, the application layer coordinates use cases, the domain models and evaluates expressions, and the HTTP adapter translates requests and responses at the system boundary.
-- This structure is intentionally extensible beyond a basic calculator. The expression tree can evolve toward a symbolic mathematics engine, similar in direction to tools such as Symbolab, by adding operations such as derivatives and integrals alongside existing arithmetic operations. Those capabilities can be introduced as new domain behaviors and application use cases without forcing the UI or HTTP contract to contain the mathematical implementation.
-- Modularity also makes combined operations easier to support. For example, a derivative or integral could consume the same expression model used by arithmetic evaluation, while separate adapters could expose it through the existing frontend or a future API endpoint.
-- The domain represents calculations as literal, binary, and unary expressions. This avoids modeling `root` or `percentage` as artificial binary operations.
-- `buildExpression` belongs to the application layer because it converts UI tokens into the AST consumed by the calculation use case.
-- Mathematical evaluation belongs to the Go domain layer and does not depend on HTTP or React.
-- Scientific notation formatting belongs to the presentation layer. It changes only the visible output, not the value used to build an expression.
-- The `root` operator is represented as a unary operator with one operand. `percentage` is also unary and evaluates an operand as a fraction of 100.
-- The frontend and backend are separate processes locally and separate services in Docker Compose.
+- The frontend is responsible for user interaction and converting calculator input into an expression AST.
+- The backend is responsible for validating and evaluating expressions.
+- Mathematical rules are kept in the domain layer and are independent of HTTP and React.
+- HTTP handlers act as adapters between the API contract and the application layer.
+- Expressions use literal, binary, and unary nodes so operations such as square root and percentage do not need artificial binary operands.
+- Formatting is kept in the presentation layer because it affects display rather than calculation.
+- The architecture is intentionally lightweight and provides clear boundaries for adding future operations without coupling the domain to the UI or transport layer.
 
 ## Docker
 
@@ -122,7 +118,8 @@ API: `http://localhost:8080`
 
 The implementation was guided by these task prompts:
 
+1. "Implement a template for the proyect using clean architecture for further enhancement"
 1. "How should `percent` be implemented here? Should it be unary and calculate immediately?"
-2. "Which part of the frontend turns a number into a value such as `200E25`?"
-3. "Where should number display formatting live when following Clean Architecture?"
-4. "Add repository documentation, setup instructions, API examples, unit tests, coverage, and optional Docker support."
+1. "Which part of the frontend turns a number into a value such as `200E25`?"
+1. "Where should number display formatting live when following Clean Architecture?"
+1. "Add repository documentation, setup instructions, API examples, unit tests, coverage, and optional Docker support."
