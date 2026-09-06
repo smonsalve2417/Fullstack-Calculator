@@ -4,7 +4,6 @@ import "errors"
 
 var (
 	ErrInvalidOperation = errors.New("invalid operation")
-	ErrInvalidArity     = errors.New("invalid operand count")
 	ErrDivisionByZero   = errors.New("division by zero")
 	ErrNegativeRoot     = errors.New("square root of a negative number")
 )

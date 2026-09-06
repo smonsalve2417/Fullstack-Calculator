@@ -39,7 +39,13 @@ function App() {
       output.style.fontSize = `${size}rem`;
     }
   }, [state.currentInput, isLoading]);
-  const api = useMemo(() => new HttpCalculatorApi("http://localhost:8080"), []);
+  const api = useMemo(
+    () =>
+      new HttpCalculatorApi(
+        import.meta.env.VITE_API_URL ?? "http://localhost:8080",
+      ),
+    [],
+  );
   const expressionLabel = state.tokens
     .map((token) =>
       token.kind === "number" ? token.value : labels[token.value],
