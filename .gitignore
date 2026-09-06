@@ -1,0 +1,9 @@
+# Frontend dependencies and build output
+Frontend/node_modules/
+Frontend/dist/
+Frontend/coverage/
+
+# Backend coverage output
+Go-Backend/coverage
+Go-Backend/coverage.out
+Go-Backend/coverage.html

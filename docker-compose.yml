@@ -1,0 +1,14 @@
+services:
+  backend:
+    build:
+      context: ./Go-Backend
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build:
+      context: ./Frontend
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
