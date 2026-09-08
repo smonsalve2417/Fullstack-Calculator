@@ -2,23 +2,6 @@
 
 A web calculator with a React + TypeScript frontend and a Go HTTP API. The frontend builds an expression AST and the backend evaluates it.
 
-┌────────────────────┐
-│   React Frontend   │
-│                    │
-│ UI → Tokens → AST  │
-└─────────┬──────────┘
-          │ HTTP
-          ▼
-┌────────────────────┐
-│     Go Backend     │
-│                    │
-│ HTTP → Use Case    │
-│          ↓         │
-│       Domain       │
-│          ↓         │
-│       Result       │
-└────────────────────┘
-
 ## Requirements
 
 - Node.js 20+
